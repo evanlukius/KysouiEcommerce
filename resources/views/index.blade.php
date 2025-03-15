@@ -25,12 +25,11 @@
         </div>
         <div class="slideshow-text container position-absolute start-50 top-50 translate-middle">
           <h6 class="text_dash text-uppercase fs-base fw-medium animate animate_fade animate_btt animate_delay-3">
-            New Products</h6>
-          <h2 class="h1 fw-normal mb-0 animate animate_fade animate_btt animate_delay-5">Night Spring</h2>
-          <h2 class="h1 fw-bold animate animate_fade animate_btt animate_delay-5">Dresses</h2>
+            Information</h6>
+          <h2 class="h1 fw-normal mb-0 animate animate_fade animate_btt animate_delay-5">Welcome to </h2>
+          <h2 class="h1 fw-bold animate animate_fade animate_btt animate_delay-5">Kyosui Inc</h2>
           <a href="#"
-            class="btn-link btn-link_lg default-underline fw-medium animate animate_fade animate_btt animate_delay-7">Buy
-            Now</a>
+            class="btn-link btn-link_lg default-underline fw-medium animate animate_fade animate_btt animate_delay-7">Learn More</a>
         </div>
       </div>
     </div>

@@ -514,9 +514,12 @@
               <img src="{{ asset('assets/images/logo.png') }}" alt="SurfsideMedia" class="logo__image d-block" />
             </a>
           </div>
-          <p class="footer-address">123 Beach Avenue, Surfside City, CA 00000</p>
-          <p class="m-0"><strong class="fw-medium">contact@surfsidemedia.in</strong></p>
-          <p><strong class="fw-medium">+1 000-000-0000</strong></p>
+          <p class="footer-address">Kyosui Co., Ltd.
+Kyoto Head Office Factory,
+60 Kisshoinjima Kashiyama-cho,
+Minami-ku, Kyoto, Kyoto Prefecture</p>
+          <p class="m-0"><strong class="fw-medium">Phone: 075-634-8263</strong></p>
+          <p><strong class="fw-medium">Fax: 075-634-8122</strong></p>
 
           <ul class="social-links list-unstyled d-flex flex-wrap mb-0">
             <li>
