@@ -11,6 +11,8 @@ use App\Http\Middleware\AuthAdmin;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+
 
 
 Route::middleware(['auth'])->group(function(){
