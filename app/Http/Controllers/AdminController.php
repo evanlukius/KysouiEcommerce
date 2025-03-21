@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon; // Ensure Carbon is used.
@@ -13,6 +14,12 @@ class AdminController extends Controller
     public function index()
     {
         return view("admin.index");
+    }
+
+    public function brands()
+    {
+        $brands = Brand::orderBy('id','DESC')->paginate(10);
+        return view("admin.brands",compact('brands'));
     }
 
     public function categories()
