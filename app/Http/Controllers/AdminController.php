@@ -128,6 +128,52 @@ class AdminController extends Controller
         return redirect()->route('admin.categories')->with('status', 'Record has been added successfully!');
     }
 
+    public function edit_category($id)
+    {
+        $category = Category::find($id);
+        return view('admin.category-edit',compact('category'));
+    }
+
+    public function update_category(Request $request)
+    {
+        $request->validate([
+            'name'  => 'required|string|max:255',
+            'slug'  => 'required|unique:categories,slug,'.$request->id,
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        $category = Category::find($request->id);
+        if (!$category) {
+            return back()->with('error', 'Category not found.');
+        }
+
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+
+        if ($request->hasFile('image')) { 
+            $oldImagePath = public_path('uploads/categories/') . $category->image;
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
+
+            $image = $request->file('image');
+            $file_extention = $image->extension(); 
+            $file_name = Carbon::now()->timestamp . '.' . $file_extention;
+
+            if (method_exists($this, 'GenerateCategoryThumbnailImage')) {
+                $this->GenerateCategoryThumbnailImage($image, $file_name);
+            } else {
+                return back()->with('error', 'Thumbnail function is missing.');
+            }
+
+            $category->image = $file_name;
+        }
+
+        $category->save();
+        
+        return redirect()->route('admin.categories')->with('status', 'Record has been updated successfully!');
+    }
+
     public function GenerateCategoryThumbnailImage($image, $imageName)
     {
         $destinationPath = public_path('uploads/categories');
