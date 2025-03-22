@@ -53,7 +53,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Slug</th>
-                                <th>Products</th>
+                                <!-- <th>Products</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -72,9 +72,11 @@
                                 <td>{{$brand->slug}}</td>
                                 <td>
                                     <div class="list-icon-function">                                        
+                                    <a href="{{route('admin.brand.edit',['id'=>$brand->id])}}">
                                         <div class="item edit">
-                                                <i class="icon-edit-3"></i>
+                                    <i class="icon-edit-3"></i>
                                         </div>
+                                    </a>
                                         <div class="item text-danger delete">
                                                 <i class="icon-trash-2"></i>
                                         </div>
