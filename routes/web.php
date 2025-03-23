@@ -16,6 +16,7 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name("shop.product.details");
+Route::get('/category/{category_slug}', [CategoryController::class, 'showCategoryProducts'])->name('category.products');
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');

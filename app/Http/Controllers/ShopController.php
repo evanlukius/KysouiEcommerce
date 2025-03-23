@@ -12,7 +12,8 @@ class ShopController extends Controller
     public function index(Request $request)
     {        
         $products = Product::orderBy('created_at','DESC')->paginate(12);
-        return view('shop',compact("products"));
+        $categories = Category::all(); 
+        return view('shop', compact('products', 'categories'));
     } 
 
     public function product_details($product_slug)
