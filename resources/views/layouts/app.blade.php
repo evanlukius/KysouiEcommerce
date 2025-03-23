@@ -402,7 +402,7 @@
               <a href="{{ route('home.index') }}" class="navigation__link">Home</a>
             </li>
             <li class="navigation__item">
-              <a href="shop.html" class="navigation__link">Shop</a>
+              <a href="{{route('shop.index')}}" class="navigation__link">Shop</a>
             </li>
             <li class="navigation__item">
               <a href="cart.html" class="navigation__link">Cart</a>
@@ -435,10 +435,15 @@
                   <input class="search-field__input search-popup__input w-100 fw-medium" type="text"
                     name="search-keyword" placeholder="Search products" />
                   <button class="btn-icon search-popup__submit" type="submit">
-                    <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <use href="#icon_search" />
-                    </svg>
+                  <a href="{{route('cart.index')}}" class="header-tools__item header-tools__cart">
+                      <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <use href="#icon_cart" />
+                      </svg>
+                      
+                      @if(Cart::instance("cart")->content()->count()>0) 
+                          <span class="cart-amount d-block position-absolute js-cart-items-count">{{Cart::instance("cart")->content()->count()}}</span>
+                      @endif
+                  </a>
                   </button>
                   <button class="btn-icon btn-close-lg search-popup__reset" type="reset"></button>
                 </div>
