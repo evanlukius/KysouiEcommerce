@@ -29,9 +29,34 @@ class CartController extends Controller
         session()->flash('success', 'Product is Added to Cart Successfully !');
 
         // Return a JSON response
-        return response()->json([
-            'status' => 200,
-            'message' => 'Success ! Item Successfully added to your cart.'
-        ]);
+        return redirect()->route('cart.index');
     }
+
+    public function increase_item_quantity($rowId)
+    {
+        $product = Cart::instance('cart')->get($rowId);
+        $qty = $product->qty + 1;
+        Cart::instance('cart')->update($rowId,$qty);
+        return redirect()->back();
+    }
+
+    public function reduce_item_quantity($rowId){
+        $product = Cart::instance('cart')->get($rowId);
+        $qty = $product->qty - 1;
+        Cart::instance('cart')->update($rowId,$qty);
+        return redirect()->back();
+    }
+
+    public function remove_item_from_cart($rowId)
+    {
+        Cart::instance('cart')->remove($rowId);
+        return redirect()->back();
+    }
+
+    public function empty_cart()
+    {
+        Cart::instance('cart')->destroy();
+        return redirect()->back();
+    }
+
 }
