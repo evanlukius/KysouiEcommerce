@@ -266,18 +266,20 @@
           </div>
 
           <div class="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
-            <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" aria-label="Sort Items"
-              name="total-number">
-              <option selected>Default Sorting</option>
-              <option value="1">Featured</option>
-              <option value="2">Best selling</option>
-              <option value="3">Alphabetically, A-Z</option>
-              <option value="3">Alphabetically, Z-A</option>
-              <option value="3">Price, low to high</option>
-              <option value="3">Price, high to low</option>
-              <option value="3">Date, old to new</option>
-              <option value="3">Date, new to old</option>
-            </select>
+          <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" style="margin-right:20px;" aria-label="Page Size" id="pagesize" name="pagesize">
+              <option value="12" {{$size=='12'? 'selected':''}}>Show</option>                        
+              <option value="24" {{$size=='24'? 'selected':''}}>24</option>
+              <option value="48" {{$size=='48'? 'selected':''}}>48</option>
+              <option value="102" {{$size=='102'? 'selected':''}}>102</option>
+          </select>
+
+
+          <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" aria-label="Sort Items" id="sorting" name="sorting">                        
+              <option value="default" {{$sorting=='default'? 'selected':''}}>Default Sorting</option>                               
+              <option value="date" {{$sorting=='date'? 'selected':''}}>Sort by newness</option>
+              <option value="price"{{$sorting=='price'? 'selected':''}}>Sort by price: low to high</option>
+              <option value="price-desc" {{$sorting=='price-desc'? 'selected':''}}>Sort by price: high to low</option>
+          </select>
 
             <div class="shop-asc__seprator mx-3 bg-light d-none d-md-block order-md-0"></div>
 
@@ -426,6 +428,29 @@
           </a>
         </nav>
       </div>
+
     </section>
   </main>
+
+  <form id="frmfilter" method="GET" action="{{route('shop.index')}}">
+    @csrf
+    <input type="hidden" name="page" value="{{$products->currentPage()}}" />
+    <input type="hidden" name="size" id="size" value="{{$size}}" />  
+    <input type="hidden" id="order" name="order" value="{{$order}}" /> 
+</form>
+
 @endsection
+
+@push('scripts')
+<script>
+    $("#pagesize").on("change",function(){                    
+        $("#size").val($("#pagesize option:selected").val());
+        $("#frmFilter").submit(); 
+    });
+
+    $("#orderby").on("change",function(){                    
+    $("#order").val($("#orderby option:selected").val());
+    $("#frmFilter").submit(); 
+});
+</script>
+@endpush
