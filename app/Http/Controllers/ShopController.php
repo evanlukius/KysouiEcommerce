@@ -13,26 +13,51 @@ class ShopController extends Controller
     public function index(Request $request)
     {        
         $size = $request->query('size')?$request->query('size'):12;
-        $order = $request->query('order');
-        $sorting = $request->query('sorting')?$request->query('sorting'):'default';               
+        $sorting = $request->query('sorting')?$request->query('sorting'):'default';	
+        $f_brands = $request->query('brands');
+        $f_categories = $request->query('categories');
         if($sorting=='date')   
         {
-            $products = Product::orderBy('created_at','DESC')->paginate($size);  
+            $products = Product::where(function($query) use ($f_brands){
+                                    $query->whereIn('brand_id',explode(',',$f_brands))->orWhereRaw("'".$f_brands."' = ''");
+                                })
+                                ->where(function($query) use ($f_categories){
+                                    $query->whereIn('category_id',explode(',',$f_categories))->orWhereRaw("'".$f_categories."' = ''");
+                                })
+                                ->orderBy('created_at','DESC')->paginate($size);  
         }
         else if($sorting=="price")
         {
-            $products = Product::orderBy('regular_price','ASC')->paginate($size); 
+            $products = Product::where(function($query) use ($f_brands){
+                $query->whereIn('brand_id',explode(',',$f_brands))->orWhereRaw("'".$f_brands."' = ''");
+            })
+            ->where(function($query) use ($f_categories){
+                $query->whereIn('category_id',explode(',',$f_categories))->orWhereRaw("'".$f_categories."' = ''");
+            })
+            ->orderBy('regular_price','ASC')->paginate($size); 
         }
         else if($sorting=="price-desc")
         {
-            $products = Product::orderBy('regular_price','DESC')->paginate($size); 
+            $products = Product::where(function($query) use ($f_brands){
+                $query->whereIn('brand_id',explode(',',$f_brands))->orWhereRaw("'".$f_brands."' = ''");
+            })
+            ->where(function($query) use ($f_categories){
+                $query->whereIn('category_id',explode(',',$f_categories))->orWhereRaw("'".$f_categories."' = ''");
+            })
+            ->orderBy('regular_price','DESC')->paginate($size); 
         }
         else{
-            $products = Product::paginate($size);  
+            $products = Product::where(function($query) use ($f_brands){
+                $query->whereIn('brand_id',explode(',',$f_brands))->orWhereRaw("'".$f_brands."' = ''");
+            })
+            ->where(function($query) use ($f_categories){
+                $query->whereIn('category_id',explode(',',$f_categories))->orWhereRaw("'".$f_categories."' = ''");
+            })
+            ->paginate($size);  
         }           
         $categories = Category::orderBy("name","ASC")->get();
         $brands = Brand::orderBy("name","ASC")->get();
-        return view('shop',compact("products","size","sorting", "categories","brands", "order"));
+        return view('shop',compact("products","size","sorting","categories","brands","f_brands","f_categories"));
     }  
 
 
