@@ -83,18 +83,19 @@
               </button>
             </h5>
             <div id="accordion-filter-brand" class="accordion-collapse collapse show border-0" aria-labelledby="accordion-heading-brand" data-bs-parent="#brand-filters">
-              <div class="search-field multi-select accordion-body px-0 pb-0">
-                <ul class="list list-inline mb-0 brand-list">
+              <div class="accordion-body px-0 pb-0">
+                <div class="d-flex flex-wrap">
                   @foreach ($brands as $brand)
-                    <li class="list-item">
-                      <span class="menu-link py-1"> <input type="checkbox" name="brands" value="{{$brand->id}}" class="chk-brand"  @if(in_array($brand->id,explode(',',$f_brands))) checked="checked" @endif  /> {{$brand->name}}</span> <span class="text-right float-right">{{$brand->products()->count()}}</span>
-                    </li>
-                  @endforeach                                                                
-                </ul>
+                    <a href="#" class="swatch-brand btn btn-sm btn-outline-light mb-3 me-3 js-filter" data-brand-id="{{$brand->id}}">
+                      {{$brand->name}} <span class="badge bg-secondary">{{$brand->products()->count()}}</span>
+                    </a>
+                  @endforeach
+                </div>
               </div>
             </div>
           </div>
         </div>
+
 
 
         <div class="accordion" id="price-filters">
@@ -427,6 +428,23 @@
             }
 
             $("#hdnCategories").val(selectedCategories.filter(Boolean).join(","));
+            $("#frmfilter").submit();
+        });
+
+        $(".swatch-brand").on("click", function(e) {
+            e.preventDefault();
+            var brandId = $(this).data("brand-id");
+            var selectedBrands = $("#hdnBrands").val().split(",");
+            
+            if (selectedBrands.includes(brandId.toString())) {
+                selectedBrands = selectedBrands.filter(id => id !== brandId.toString());
+                $(this).removeClass("btn-primary").addClass("btn-outline-light");
+            } else {
+                selectedBrands.push(brandId);
+                $(this).removeClass("btn-outline-light").addClass("btn-primary");
+            }
+
+            $("#hdnBrands").val(selectedBrands.filter(Boolean).join(","));
             $("#frmfilter").submit();
         });
     });
