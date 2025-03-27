@@ -115,15 +115,15 @@
             <div id="accordion-filter-price" class="accordion-collapse collapse show border-0"
               aria-labelledby="accordion-heading-price" data-bs-parent="#price-filters">
               <input class="price-range-slider" type="text" name="price_range" value="" data-slider-min="10"
-                data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]" data-currency="¥" />
+                data-slider-max="1000" data-slider-step="5" data-slider-value="[{{$min_price}},{{$max_price}}]" data-currency="¥" />
               <div class="price-range__info d-flex align-items-center mt-2">
                 <div class="me-auto">
                   <span class="text-secondary">Min Price: </span>
-                  <span class="price-range__min">¥250</span>
+                  <span class="price-range__min">¥1</span>
                 </div>
                 <div>
                   <span class="text-secondary">Max Price: </span>
-                  <span class="price-range__max">¥450</span>
+                  <span class="price-range__max">¥1000</span>
                 </div>
               </div>
             </div>
@@ -336,29 +336,29 @@
                     <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
                 </div>
                 @if(Cart::instance("wishlist")->content()->Where('id',$product->id)->count()>0)
-                    <form method="POST" action="{{route('wishlist.remove',['rowId'=>Cart::instance("wishlist")->content()->Where('id',$product->id)->first()->rowId])}}">                                    
-                        @csrf
-                        @method("DELETE")
-                        <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 filled-heart" title="Remove from Wishlist">
-                            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_heart" />
-                            </svg>
-                        </button>
-                    </form>
-                @else
-                <form method="POST" action="">
-                    @csrf
-                    <input type="hidden" name="id" value="{{$product->id}}" />
-                    <input type="hidden" name="name" value="{{$product->name}}" />
-                    <input type="hidden" name="quantity" value="1"/>
-                    <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price:$product->sale_price}}" />
-                    <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0" title="Add To Wishlist">
-                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_heart" />
-                        </svg>
-                    </button>
-                </form>
-                @endif
+                          <form method="POST" action="{{route('wishlist.remove',['rowId'=>Cart::instance("wishlist")->content()->Where('id',$product->id)->first()->rowId])}}">                                    
+                                  @csrf
+                                  @method("DELETE")
+                                  <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 filled-heart" title="Remove from Wishlist">
+                                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <use href="#icon_heart" />
+                                  </svg>
+                                  </button>
+                          </form>
+                  @else
+                          <form method="POST" action="{{route('wishlist.add')}}">
+                          @csrf
+                          <input type="hidden" name="id" value="{{$product->id}}" />
+                          <input type="hidden" name="name" value="{{$product->name}}" />
+                          <input type="hidden" name="quantity" value="1"/>
+                          <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price:$product->sale_price}}" />
+                          <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0" title="Add To Wishlist">
+                                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <use href="#icon_heart" />
+                                  </svg>
+                          </button>
+                          </form>
+                  @endif
             </div>
         </div>
     </div>
@@ -397,6 +397,8 @@
     <input type="hidden" id="order" name="order" value="" /> 
     <input type="hidden" name="brands" id="hdnBrands" />
     <input type="hidden" name="categories" id="hdnCategories" />
+    <input type="hidden" name="min" id="hdnMinPrice" value="{{$min_price}}" />
+    <input type="hidden" name="max" id="hdnMaxPrice" value="{{$max_price}}" />  
 </form>
 
 @endsection
@@ -447,6 +449,13 @@
             $("#hdnBrands").val(selectedBrands.filter(Boolean).join(","));
             $("#frmfilter").submit();
         });
+
+        $("[name='price_range']").on("change",function(){
+        $("#hdnMinPrice").val($(this).val().split(',')[0]);
+        $("#hdnMaxPrice").val($(this).val().split(',')[1]);
+        $("#frmfilter").submit();
+    }); 
+
     });
 </script>
 @endpush
