@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Middleware\AuthAdmin;
 
 
@@ -19,6 +20,9 @@ Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name("shop.product.details");
 Route::get('/category/{category_slug}', [CategoryController::class, 'showCategoryProducts'])->name('category.products');
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.show');
+
 
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
@@ -39,6 +43,8 @@ Route::post('/wishlist/move-to-cart/{rowId}',[WishlistController::class,'move_to
 Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/place-order', [CartController::class, 'place_order'])->name('cart.place.order');
 Route::get('/order-confirmation', [CartController::class, 'confirmation'])->name('cart.confirmation');
+
+Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact.store');
 
 
 

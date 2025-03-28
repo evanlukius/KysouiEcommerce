@@ -316,13 +316,16 @@
               <a href="{{route('shop.index')}}" class="navigation__link">Shop</a>
             </li>
             <li class="navigation__item">
-              <a href="cart.html" class="navigation__link">Cart</a>
+              <a href="{{route('cart.index')}}" class="navigation__link">Cart</a>
             </li>
             <li class="navigation__item">
               <a href="{{ route('home.about') }}" class="navigation__link">About</a>
             </li>
             <li class="navigation__item">
-              <a href="contact.html" class="navigation__link">Contact</a>
+              <a href="{{ route('home.contact') }}" class="navigation__link">Contact</a>
+            </li>
+            <li class="navigation__item">
+              <a href="{{ route('home.contact') }}" class="navigation__link">Contact</a>
             </li>
           </ul>
         </div>
@@ -411,7 +414,7 @@
              <a href="{{ route('home.about') }}" class="navigation__link">About</a>
             </li>
             <li class="navigation__item">
-              <a href="contact.html" class="navigation__link">Contact</a>
+              <a href="{{ route('home.contact') }}" class="navigation__link">Contact</a>
             </li>
           </ul>
         </nav>
@@ -452,13 +455,6 @@
                   <div class="sub-menu search-suggestion">
                     <h6 class="sub-menu__title fs-base">Quicklinks</h6>
                     <ul class="sub-menu__list list-unstyled">
-                      <li class="sub-menu__item"><a href="shop2.html" class="menu-link menu-link_us-s">New Arrivals</a>
-                      </li>
-                      <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Dresses</a></li>
-                      <li class="sub-menu__item"><a href="shop3.html" class="menu-link menu-link_us-s">Accessories</a>
-                      </li>
-                      <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Footwear</a></li>
-                      <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Sweatshirt</a></li>
                     </ul>
                   </div>
 
@@ -510,6 +506,11 @@
                   </span>
               @endif
           </a>
+
+              <!-- Language Selector (Google Translate Widget) -->
+        <div class="header-tools__item hover-container">
+            <div id="google_translate_element"></div> <!-- Language selection dropdown -->
+        </div>
 
 
         </div>
@@ -644,17 +645,17 @@ Minami-ku, Kyoto, Kyoto Prefecture</p>
       </div>
 
       <div class="col-4">
-        <a href="{{ route('home.index') }}" class="footer-mobile__link d-flex flex-column align-items-center">
+        <a href="{{route('shop.index')}}" class="footer-mobile__link d-flex flex-column align-items-center">
           <svg class="d-block" width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <use href="#icon_hanger" />
+            <use href="#icon_cart" />
           </svg>
           <span>Shop</span>
         </a>
       </div>
 
       <div class="col-4">
-        <a href="{{ route('home.index') }}" class="footer-mobile__link d-flex flex-column align-items-center">
+        <a href="{{ route('wishlist.index') }}" class="footer-mobile__link d-flex flex-column align-items-center">
           <div class="position-relative">
             <svg class="d-block" width="18" height="18" viewBox="0 0 20 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
@@ -677,6 +678,82 @@ Minami-ku, Kyoto, Kyoto Prefecture</p>
   <script src="{{ asset('assets/js/plugins/swiper.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/countdown.js') }}"></script>
   <script src="{{ asset('assets/js/theme.js') }}"></script>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',  // Default language of the page
+            includedLanguages: 'en,ja,id,vi', // List of languages you want to support (English, Japanese, Indonesian, Vietnamese)
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- Styling for the page and translate widget -->
+<style>
+    /* Main container for translation widget */
+    #google_translate_element {
+        display: inline-block;
+        font-size: 14px;
+        margin: 10px 0;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Center-align and style header tools */
+    .header-tools {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .header-tools__item {
+        display: inline-block;
+        margin-right: 15px;
+        font-size: 16px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* Hover effect for interactive elements */
+    .hover-container:hover {
+        cursor: pointer;
+        color: #007BFF;
+    }
+
+    /* Responsive design adjustments */
+    @media (max-width: 768px) {
+        .header-tools {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header-tools__item {
+            margin-bottom: 10px;
+        }
+        
+        /* Style the translation widget for small screens */
+        #google_translate_element {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        /* Adjust font sizes for small devices */
+        .header-tools__item {
+            font-size: 14px;
+        }
+
+        #google_translate_element {
+            font-size: 12px;
+        }
+    }
+</style>
   @stack("scripts")
 </body>
 </html>
