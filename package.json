@@ -2,11 +2,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "dev": "vite",
-        "start": "node server.js", 
-    "build": "webpack --config webpack.config.js",
-    "dev": "webpack-dev-server"
+        "build": "webpack --config webpack.config.js",
+        "dev": "webpack-dev-server",
+        "start": "node server.js"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
@@ -17,7 +15,8 @@
         "laravel-vite-plugin": "^1.2.0",
         "sass": "^1.56.1",
         "tailwindcss": "^4.0.0",
-        "vite": "^6.0.11"
+        "vite": "^6.0.11",
+        "webpack-cli": "^6.0.1"
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^5.2.1"
