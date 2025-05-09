@@ -116,6 +116,24 @@
                                             </li>
                                     </ul>
                                 </li>    
+                                <li class="menu-item has-children">
+                                    <a href="javascript:void(0);" class="menu-item-button">
+                                            <div class="icon"><i class="icon-layers"></i></div>
+                                            <div class="text">News/Blog</div>
+                                    </a>
+                                    <ul class="sub-menu">
+                                            <li class="sub-menu-item">
+                                                    <a href="{{route('admin.category.add')}}" class="">
+                                                    <div class="text">New Blog</div>
+                                                    </a>
+                                            </li>
+                                            <li class="sub-menu-item">
+                                                    <a href="{{route('admin.categories')}}" class="">
+                                                    <div class="text">Blogs</div>
+                                                    </a>
+                                            </li>
+                                    </ul>
+                                </li>    
 
                                 <li class="menu-item has-children">
                                     <a href="javascript:void(0);" class="menu-item-button">
@@ -166,7 +184,7 @@
                                     <form method="POST" action="{{ route('logout')}}" id="logout-form">
                                         @csrf
                                     <a href="{{ route('logout')}}"class="" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> 
-                                        <div class="icon"><i class="icon-settings"></i></div>
+                                        <div class="icon"><i class="icon-log-out"></i></div>
                                         <div class="text">Logout</div>
                                     </a>
                                     </form>
@@ -400,7 +418,7 @@
                                                     <img src="images/avatar/user-1.png" alt="">
                                                 </span>
                                                 <span class="flex flex-column">
-                                                    <span class="body-title mb-2">Kristin Watson</span>
+                                                    <span class="body-title mb-2">{{Auth::user()->name}}</span>
                                                     <span class="text-tiny">Admin</span>
                                                 </span>
                                             </span>

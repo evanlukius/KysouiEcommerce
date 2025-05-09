@@ -20,4 +20,16 @@
       </div>
     </section>
   </main>
+  <div class="container">
+    <h2>Your Addresses</h2>
+    @foreach($addresses as $address)
+        <div class="card mb-2">
+            <div class="card-body">
+                <p><strong>{{ $address->name }}</strong></p>
+                <p>{{ $address->street }}, {{ $address->city }}, {{ $address->zip }}</p>
+                <a href="{{ route('user.account.address.edit', ['address_id' => $address->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+            </div>
+        </div>
+    @endforeach
+</div>
 @endsection

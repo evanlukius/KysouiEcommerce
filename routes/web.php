@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Middleware\AuthAdmin;
+use App\Http\Controllers\UserAccountController;
 
 
 Auth::routes();
@@ -86,5 +87,8 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
     Route::get('/admin/coupon/edit/{id}', [AdminController::class, 'edit_coupon'])->name('admin.coupon.edit');
     Route::put('/admin/coupon/update',[AdminController::class,'update_coupon'])->name('admin.coupon.update');
     Route::delete('/admin/coupon/{id}/delete',[AdminController::class,'delete_coupon'])->name('admin.coupon.delete');
+
+    Route::get('/account/addresses', [UserAccountController::class, 'addresses'])->name('user.account.addresses');
+    Route::get('/account/addresses/edit/{address_id}', [UserAccountController::class, 'editAddress'])->name('user.account.address.edit');
 
 });

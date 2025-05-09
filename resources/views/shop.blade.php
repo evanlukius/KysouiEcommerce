@@ -308,13 +308,15 @@
                 <h6 class="pc__title"><a href="{{route('shop.product.details',["product_slug"=>$product->slug])}}">{{$product->name}}</a></h6>
                 <div class="product-card__price d-flex">
                     <span class="money price">
-                        @if($product->sale_price)                    
-                            <s>${{$product->regular_price}}</s> ${{$product->sale_price}} {{round(($product->regular_price - $product->sale_price)*100/$product->regular_price)}} % OFF
+                        @if($product->sale_price && $product->sale_price < $product->regular_price)
+                            <s>¥{{$product->regular_price}}</s> ¥{{$product->sale_price}} 
+                            {{ round(($product->regular_price - $product->sale_price) * 100 / $product->regular_price) }}% OFF
                         @else
-                            {{$product->regular_price}}
+                            ¥{{$product->regular_price}}
                         @endif
                     </span>
                 </div>
+
                 <div class="product-card__review d-flex align-items-center">
                     <div class="reviews-group d-flex">
                         <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">

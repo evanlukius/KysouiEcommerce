@@ -574,19 +574,19 @@
             <div class="product-card product-card_style3 mb-3 mb-md-4 mb-xxl-5">
                 <div class="pc__img-wrapper">
                     <a href="{{ route('shop.product.details', $product->id) }}">
-                        <img loading="lazy" src="{{asset('uploads/products')}}/{{$product->image}}" width="330" height="400"
+                        <img loading="lazy" src="{{ asset('uploads/products') }}/{{ $product->image }}" width="330" height="400"
                             alt="{{ $product->name }}" class="pc__img">
                     </a>
-                    
+
                     <!-- New Product Label -->
                     @if($product->is_new)
                         <div class="product-label text-uppercase bg-white top-0 left-0 mt-2 mx-2">New</div>
                     @endif
 
                     <!-- Discount Label -->
-                    @if($product->discount > 0)
+                    @if($product->sale_price && $product->sale_price < $product->regular_price)
                         <div class="product-label bg-red text-white right-0 top-0 left-auto mt-2 mx-2">
-                            -{{ $product->discount }}%
+                            -{{ round(($product->regular_price - $product->sale_price) * 100 / $product->regular_price) }}%
                         </div>
                     @endif
                 </div>
@@ -595,12 +595,14 @@
                     <h6 class="pc__title">
                         <a href="{{ route('shop.product.details', $product->id) }}">{{ $product->name }}</a>
                     </h6>
+
                     <div class="product-card__price d-flex align-items-center">
-                        <!-- If there is a discount, show the original price -->
-                        @if($product->discount > 0)
-                            <span class="money price-old">${{ number_format($product->regular_price, 2) }}</span>
+                        @if($product->sale_price && $product->sale_price < $product->regular_price)
+                            <span class="money price-old">¥{{ number_format($product->regular_price) }}</span>
+                            <span class="money price text-secondary">¥{{ number_format($product->sale_price) }}</span>
+                        @else
+                            <span class="money price text-secondary">¥{{ number_format($product->regular_price) }}</span>
                         @endif
-                        <span class="money price text-secondary">${{ number_format($product->sale_price ?? $product->regular_price, 2) }}</span>
                     </div>
 
                     <div class="anim_appear-bottom position-absolute bottom-0 start-0 d-none d-sm-flex align-items-center bg-body">
@@ -627,6 +629,7 @@
         </div>
     @endforeach
 </div><!-- /.row -->
+
 
 
     <div class="text-center mt-2">
