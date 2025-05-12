@@ -91,4 +91,8 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
     Route::get('/account/addresses', [UserAccountController::class, 'addresses'])->name('user.account.addresses');
     Route::get('/account/addresses/edit/{address_id}', [UserAccountController::class, 'editAddress'])->name('user.account.address.edit');
 
+    Route::get('/admin/orders',[AdminController::class,'orders'])->name('admin.orders');
+    Route::get('/admin/order/items/{order_id}',[AdminController::class,'order_items'])->name('admin.order.items');
+
+
 });
