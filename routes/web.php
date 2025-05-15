@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function(){
 
     // Route to view the order confirmation (GET)
     Route::get('/order/confirmation', [OrderController::class, 'confirmation'])->name('cart.confirmation');
+    Route::get('/account-orders',[UserController::class,'account_orders'])->name('user.account.orders');
+    Route::get('/account-order-detials/{order_id}',[UserController::class,'account_order_details'])->name('user.acccount.order.details');
 });
 
 Route::middleware(['auth', AuthAdmin::class])->group(function(){
@@ -93,6 +95,7 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
 
     Route::get('/admin/orders',[AdminController::class,'orders'])->name('admin.orders');
     Route::get('/admin/order/items/{order_id}',[AdminController::class,'order_items'])->name('admin.order.items');
+    Route::put('/admin/order/update-status',[AdminController::class,'update_order_status'])->name('admin.order.status.update');
 
 
 });
